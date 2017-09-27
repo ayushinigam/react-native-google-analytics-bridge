@@ -62,6 +62,9 @@ RCT_EXPORT_METHOD(trackScreenViewWithCustomDimensionValues:(NSString *)trackerId
     [tracker set:kGAIScreenName
          value:screenName];
 
+    NSString *userId = [tracker get:kGAIClientId];
+    NSLog(@"********Client ID*********** %@", userId);
+
     GAIDictionaryBuilder *builder = [GAIDictionaryBuilder createScreenView];
 
     for (NSString *dimensionIndex in dimensionIndexValues)
@@ -182,7 +185,7 @@ RCT_EXPORT_METHOD(trackPurchaseEventWithCustomDimensionValues:(NSString *)tracke
                                                                             value:nil];
     for (NSString *dimensionIndex in dimensionIndexValues)
         [builder set:[dimensionIndexValues objectForKey:dimensionIndex] forKey:[GAIFields customDimensionForIndex:[dimensionIndex intValue]]];
-        
+
     GAIEcommerceProductAction *action = [[GAIEcommerceProductAction alloc] init];
     [action setAction:kGAIPAPurchase];
     [action setTransactionId:transactionId];
